@@ -3,7 +3,7 @@ import "./card_print.css"
 
 class Card extends React.Component {
   render() {
-    var typeClassIndex = {
+    let typeClassIndex = {
       Волшебник: "cardArcane",
       Колдун: "cardKoldun",
       Чародей: "cardSorserer",
@@ -20,9 +20,9 @@ class Card extends React.Component {
       Паладин: "cardPaladin",
       Бард: "cardBard",
     };
-    var typeClass = typeClassIndex[this.props.type];
-    var bigNameLength = this.props.data.name.length;
-    for (var i = 0; i < bigNameLength; i++) {
+    let typeClass = typeClassIndex[this.props.type];
+    let bigNameLength = this.props.data.name.length;
+    for (let i = 0; i < bigNameLength; i++) {
       if (
         ~["Ж", "Ш", "Щ", "М", "ж", "ш", "щ", "м"].indexOf(
           this.props.data.name[i]
@@ -31,9 +31,9 @@ class Card extends React.Component {
         bigNameLength += 0.5;
       }
     }
-    var bigName = bigNameLength > 26 ? true : false;
-    var cardClass = "card " + typeClass;
-    var source = this.props.data.source
+    let bigName = bigNameLength > 26 ? true : false;
+    let cardClass = "card " + typeClass;
+    let source = this.props.data.source
       ? "- " +
         this.props.data.source
           .split(" ")
@@ -44,7 +44,7 @@ class Card extends React.Component {
       : "";
     if (this.props.showBack) {
       cardClass += " back";
-      var lvlNum =
+      let lvlNum =
         this.props.data.level == "Заговор"
           ? 0
           : this.props.data.level.substr(0, 1);
@@ -96,8 +96,8 @@ class Card extends React.Component {
 
 class CardText extends React.Component {
   render() {
-    var fontSizeClass = "text";
-    var len = 0;
+    let fontSizeClass = "text";
+    let len = 0;
     this.props.text.forEach(function (pText, ind) {
       len += pText.length;
     });
@@ -127,11 +127,11 @@ class CardText extends React.Component {
       fontSizeClass += " bigName";
     }
 
-    var cardText = this.props.text.map(function (pText, ind) {
-      var pClass = ind == 0 ? "first" : "";
+    let cardText = this.props.text.map(function (pText, ind) {
+      let pClass = ind == 0 ? "first" : "";
       return <p className={pClass}> {pText} </p>;
     });
-    var higherLevels = "";
+    let higherLevels = "";
     if (this.props.hightlevel && this.props.hightlevel.length) {
       higherLevels = <HigherLevels text={this.props.hightlevel} />;
     }
@@ -145,8 +145,8 @@ class CardText extends React.Component {
 
 class HigherLevels extends React.Component {
   render() {
-    var cardText = this.props.text.map(function (pText, ind) {
-      var pClass = ind == 0 ? "first" : "";
+    let cardText = this.props.text.map(function (pText, ind) {
+      let pClass = ind == 0 ? "first" : "";
       return <p className={pClass}> {pText} </p>;
     });
     return (
@@ -181,7 +181,7 @@ class Cards extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   loadCommentsFromServer() {
-   var data = fetch(this.props.url).then(
+   let data = fetch(this.props.url).then(
       (data) => data.json(),
       (error) => {
         console.error(this.props.url, error.toString());
@@ -206,8 +206,8 @@ class Cards extends React.Component {
     this.setState({ selectedSource: event.target.value });
   }
   handleChangeLvl(lvl, event) {
-    var lvlName = "lvl" + lvl;
-    var obj = {};
+    let lvlName = "lvl" + lvl;
+    let obj = {};
     obj[lvlName] = !this.state[lvlName];
     this.setState(obj);
   }
@@ -215,9 +215,9 @@ class Cards extends React.Component {
     this.setState({ showBacks: !this.state.showBacks });
   }
   render() {
-    var cardNodes = "";
-    var cards = [];
-    var selectedSource = this.state.selectedSource;
+    let cardNodes = "";
+    let cards = [];
+    let selectedSource = this.state.selectedSource;
     if (selectedSource == "Все") {
       cards = this.cards;
     } else if (selectedSource == "PHB") {
@@ -240,10 +240,10 @@ class Cards extends React.Component {
         );
       }, this);
     } else {
-      var arr = [];
+      let arr = [];
       cards.forEach(function (card) {
-        var lvlNum = card.level == "Заговор" ? 0 : card.level.substr(0, 1);
-        var lvlName = "lvl" + lvlNum;
+        let lvlNum = card.level == "Заговор" ? 0 : card.level.substr(0, 1);
+        let lvlName = "lvl" + lvlNum;
         if (
           this.state[lvlName] &&
           ~this.classesCard[this.state.selectedClass].indexOf(card.name)
@@ -265,10 +265,10 @@ class Cards extends React.Component {
       );
 
       if (this.state.showBacks) {
-        var tempArr = [];
+        let tempArr = [];
         while (arr.length) {
-          var slice = arr.splice(0, 3);
-          for (var i = slice.length - 1; i >= 0; i--) {
+          let slice = arr.splice(0, 3);
+          for (let i = slice.length - 1; i >= 0; i--) {
             tempArr.push(slice[i]);
           }
         }
