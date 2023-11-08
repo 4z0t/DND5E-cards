@@ -1,5 +1,5 @@
 import React from "react";
-import "./card_print.css"
+import "./card_print.css";
 
 class Card extends React.Component {
   render() {
@@ -178,42 +178,40 @@ class Cards extends React.Component {
       lvl8: false,
       lvl9: false,
     };
-    this.handleChange = this.handleChange.bind(this);
   }
   loadCommentsFromServer() {
-   let data = fetch(this.props.url).then(
-      (data) => data.json(),
-      (error) => {
-        console.error(this.props.url, error.toString());
-      }
-    ).then(
-        (data)=>
-        {
-            this.cards = data.cards;
-            this.classesCard = data.classesCard;
+    let data = fetch(this.props.url)
+      .then(
+        (data) => data.json(),
+        (error) => {
+          console.error(this.props.url, error.toString());
         }
-    );
+      )
+      .then((data) => {
+        this.cards = data.cards;
+        this.classesCard = data.classesCard;
+      });
   }
 
   componentDidMount() {
     this.loadCommentsFromServer();
     // setInterval(this.loadCommentsFromServer, this.props.pollInterval);
   }
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({ selectedClass: event.target.value });
-  }
-  handleChangeSource(event) {
+  };
+  handleChangeSource = (event) => {
     this.setState({ selectedSource: event.target.value });
-  }
+  };
   handleChangeLvl(lvl, event) {
     let lvlName = "lvl" + lvl;
     let obj = {};
     obj[lvlName] = !this.state[lvlName];
     this.setState(obj);
   }
-  showBacksChange(event) {
+  showBacksChange = (event) => {
     this.setState({ showBacks: !this.state.showBacks });
-  }
+  };
   render() {
     let cardNodes = "";
     let cards = [];
@@ -227,7 +225,7 @@ class Cards extends React.Component {
     } else {
       cards = this.cards.filter(function (card) {
         return card.source == selectedSource;
-    });
+      });
     }
     if (this.state.selectedClass == "Все") {
       cardNodes = cards.map(function (card) {
