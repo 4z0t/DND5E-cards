@@ -1,6 +1,10 @@
 import React from "react";
 import "./card_print.css";
 
+const Checkbox = ({ checked, onChange }) => {
+  return <input type="checkbox" checked={checked} onChange={onChange} />;
+};
+
 class Card extends React.Component {
   render() {
     let typeClassIndex = {
@@ -312,68 +316,57 @@ class Cards extends React.Component {
           <option value="Elemental Evil"> EE </option>
         </select>
         |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl0}
           onChange={(e) => this.handleChangeLvl(0, e)}
         />
         0 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl1}
           onChange={(e) => this.handleChangeLvl(1, e)}
         />
         1 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl2}
           onChange={(e) => this.handleChangeLvl(2, e)}
         />
         2 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl3}
           onChange={(e) => this.handleChangeLvl(3, e)}
         />
         3 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl4}
           onChange={(e) => this.handleChangeLvl(4, e)}
         />
         4 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl5}
           onChange={(e) => this.handleChangeLvl(5, e)}
         />
         5 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl6}
           onChange={(e) => this.handleChangeLvl(6, e)}
         />
         6 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl7}
           onChange={(e) => this.handleChangeLvl(7, e)}
         />
         7 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl8}
           onChange={(e) => this.handleChangeLvl(8, e)}
         />
         8 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.lvl9}
           onChange={(e) => this.handleChangeLvl(9, e)}
         />
         9 |
-        <input
-          type="checkbox"
+        <Checkbox
           checked={this.state.showBacks}
           onChange={this.showBacksChange}
         />
