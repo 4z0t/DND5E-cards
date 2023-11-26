@@ -245,10 +245,10 @@ class Cards extends React.Component {
       });
     }
     if (this.state.selectedClass == "Все") {
-      let arr=[]
+      let arr = cards;
       if (this.state.filters.length !== 0) {
         let filters = this.state.filters;
-        arr = cards.filter((card) =>
+        arr = arr.filter((card) =>
           filters.some((filter) => card.name.toLowerCase().includes(filter))
         );
       }
