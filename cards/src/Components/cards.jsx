@@ -168,6 +168,7 @@ class Cards extends React.Component {
     this.cards = [];
     this.state = {
       data: [],
+      filters: [],
       selectedClass: "Все",
       selectedSource: "Все",
       showBacks: false,
@@ -207,15 +208,27 @@ class Cards extends React.Component {
   handleChangeSource = (event) => {
     this.setState({ selectedSource: event.target.value });
   };
-  handleChangeLvl(lvl, event) {
+  handleChangeLvl = (lvl, event) => {
     let lvlName = "lvl" + lvl;
     let obj = {};
     obj[lvlName] = !this.state[lvlName];
     this.setState(obj);
-  }
+  };
   showBacksChange = (event) => {
     this.setState({ showBacks: !this.state.showBacks });
   };
+
+  handleFilterChange = (value) => {
+    let s = value;
+    if (s === "") {
+      this.setState({ filters: [] });
+      return;
+    }
+    let words = s.split(",");
+    words = words.map((s) => s.trim());
+    this.setState({ filters: words });
+  };
+
   render() {
     let cardNodes = "";
     let cards = [];
@@ -232,7 +245,14 @@ class Cards extends React.Component {
       });
     }
     if (this.state.selectedClass == "Все") {
-      cardNodes = cards.map(function (card) {
+      let arr=[]
+      if (this.state.filters.length !== 0) {
+        let filters = this.state.filters;
+        arr = cards.filter((card) =>
+          filters.some((filter) => card.name.toLowerCase().includes(filter))
+        );
+      }
+      cardNodes = arr.map(function (card) {
         return (
           <Card
             data={card}
@@ -276,6 +296,13 @@ class Cards extends React.Component {
         }
         arr = tempArr;
       }
+      if (this.state.filters.length !== 0) {
+        let filters = this.state.filters;
+        arr = arr.filter((card) =>
+          filters.some((filter) => card.name.toLowerCase().includes(filter))
+        );
+      }
+
       cardNodes = arr.map(function (card) {
         return (
           <Card
@@ -370,7 +397,11 @@ class Cards extends React.Component {
           checked={this.state.showBacks}
           onChange={this.showBacksChange}
         />
-        Back <div className="cards"> {cardNodes} </div>
+        Back
+        <textarea
+          onChange={(e) => this.handleFilterChange(e.target.value)}
+        ></textarea>
+        <div className="cards"> {cardNodes} </div>
       </div>
     );
   }
